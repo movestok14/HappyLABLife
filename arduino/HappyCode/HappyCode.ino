@@ -1,28 +1,15 @@
-int ledPin = 13;                // 출력할 핀번호
-int inputPin = 2;               // 움직임 감지 센서 출력 핀번호
-int ledState = LOW;             // Led 동작 저장
-int val = 0;                    // 움직임 센서에 상태를 저장하기 위한 variable
- 
+int sensorPin = 0;// 사운드 센서를 0번핀에 연결합니다.
+int ledPin = 11;// LED를 11번핀에 연결합니다.
 void setup() {
-  pinMode(ledPin, OUTPUT);      // 출력 -> 13 번
-  pinMode(inputPin, INPUT);     // 센서 인풋 선언
+  pinMode(ledPin,OUTPUT);// ledPin을 출력으로 설정합니다.
   Serial.begin(9600);
 }
- 
-void loop(){
-  val = digitalRead(inputPin);  // 인풋 값을 저장
-  if (val == HIGH) {            // 인풋 값이 높은지 확인
-    digitalWrite(ledPin, HIGH);  // led On
-    if (ledState == LOW) {
-      Serial.println("Motion detected!"); // 센서 동작상태 출력
-      ledState = HIGH;
-    }
-  } else {
-    digitalWrite(ledPin, LOW); // LED끄기
-    if (ledState == HIGH){
-      // we have just turned of
-      Serial.println("Motion ended!");
-      ledState = LOW;
-    }
-  }
+void loop() {
+  int value = analogRead(sensorPin); // 사운드 센서값을 읽기.
+  int intensity = map(value,19,250,0,200);// 읽어들인 값으로 LED의 밝기를 구하고, LED의 밝기를 새로고침 합니다.
+  
+  analogWrite(ledPin, intensity);
+  delay(10);//10ms 동안 대기
+   Serial.println(value);//센서값을 시리얼 모니터로 출력하여 현재 센서값을 보여줍니다.
+   delay(100);//100ms 동안 대기
 }
