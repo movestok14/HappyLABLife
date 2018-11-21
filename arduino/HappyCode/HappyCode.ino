@@ -20,16 +20,16 @@ void setup() {
 void loop(){
    val = digitalRead(inputPin);  // 동작감지 센서 인풋 값을 저장
   int svalue = analogRead(sensorPin); // 사운드 센서로부터 센서값을 읽어 들입니다.계속읽기
-  // Serial.println(svalue);//센서값을 시리얼 모니터로 출력하여 현재 센서값을 보여줍니다.
-  //Serial.println(digitalRead(8));
+  Serial.println(svalue);//센서값을 시리얼 모니터로 출력하여 현재 센서값을 보여줍니다.
+//  Serial.println(digitalRead(8));
   int button1State=digitalRead(button1Pin); //버튼상태 저장
   if(button1State == LOW){
-    Serial.println("button pushed!!");
+ // Serial.println(button1State);
   }//버튼동작부
 
   
   if (val == HIGH) {            // 인풋 값이 높은지 확인
-    if((digitalRead(8) == 0) || (button1State == LOW)){
+    if((digitalRead(8) == 0) || (button1State == 0) || (svalue>1000)){
        digitalWrite(ledPin, HIGH);  // led를 켜기
     }
       
