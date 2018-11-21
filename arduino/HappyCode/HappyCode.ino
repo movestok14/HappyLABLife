@@ -1,7 +1,7 @@
 int ledPin = 13;                // 출력할 핀번호
 int inputPin = 2;               // 움직임 감지 센서 출력 핀번호
 int pirState = LOW;             // we start, assuming no motion detected
-int val = 0;                    // 움직임 센서에 상태를 저장하기 위한 variable
+int val = LOW;                    // 움직임 센서에 상태를 저장하기 위한 variable
 
 int sensorPin = 0;// 사운드 센서를 0번핀에 연결합니다.
 
@@ -20,7 +20,8 @@ void setup() {
 void loop(){
    val = digitalRead(inputPin);  // 동작감지 센서 인풋 값을 저장
   int svalue = analogRead(sensorPin); // 사운드 센서로부터 센서값을 읽어 들입니다.계속읽기
- //  Serial.println(svalue);//센서값을 시리얼 모니터로 출력하여 현재 센서값을 보여줍니다.
+  // Serial.println(svalue);//센서값을 시리얼 모니터로 출력하여 현재 센서값을 보여줍니다.
+  //Serial.println(digitalRead(8));
   int button1State=digitalRead(button1Pin); //버튼상태 저장
   if(button1State == LOW){
     Serial.println("button pushed!!");
@@ -28,9 +29,8 @@ void loop(){
 
   
   if (val == HIGH) {            // 인풋 값이 높은지 확인
-    digitalWrite(ledPin, HIGH);  // led를 켜기
-    if((svalue>1000) || (digitalRead(8) == HIGH) || (button1State == LOW)){
-   
+    if((digitalRead(8) == 0) || (button1State == LOW)){
+       digitalWrite(ledPin, HIGH);  // led를 켜기
     }
       
       if (pirState == LOW) {
